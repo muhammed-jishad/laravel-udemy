@@ -8,10 +8,10 @@ use App\Http\Requests\store;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateRequest;
 use App\Http\Resources\TaskResource;
 use Illuminate\Http\RedirectResponse;
-// use App\Http\Requests\StoreTaskRequest;
-// use App\Http\Requests\UpdateTaskRequest;
+
 
 class TaskController extends Controller
 {
@@ -28,9 +28,10 @@ class TaskController extends Controller
         $task=Task::create($request->validated());
         return TaskResource::make($task);
     }
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Task $task)
     {
-        //
+        $task->update($request->validated());
+        return TaskResource::make($task);
     }
 
     /**
